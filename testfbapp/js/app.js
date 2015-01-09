@@ -108,8 +108,9 @@ function shareWithFriends() {
 		e.stopPropagation();
 		$('#share-page').text("Sharing page...")
 		addIDs();
-		var message = getMessage();
-		var url = window.location.href;
+		var message = getMessage(),
+		url = window.location.href,
+		successful_shares_count = 0;
 
 		//Request public permissions
 		FB.login(function(response){
@@ -126,18 +127,19 @@ function shareWithFriends() {
 					  },	
 					  function(response) {
 					    console.log(response);
-					    if (response.error) {
-					    	$('#permission-alert').addClass("fadeInDown").show();
-					    	$('#share-page').text('Share with friends')
-					    }
-					    else {
-					    	$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared");
+					    if (!response.error) {
+					    	successful_shares_count++;
 					    }    
 					});	
 				}
-		      } 
-		      else
-		      {
+				
+				if (successful_shares_count > 0) {
+					$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared with " + successful_shares_count + " friends");
+				} else {
+					$('#permission-alert').addClass("fadeInDown").show();
+			    	$('#share-page').text('Share with friends')
+				}
+		      } else {
 		        console.log(response);
 		      }
 		}, {scope: 'publish_actions'})
