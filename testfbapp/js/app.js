@@ -112,7 +112,10 @@ function track_progress(fb_response) {
     	successful_shares_count++;
     } 
 	
+	console.log(total_number_of_shares);
+	
 	if (total_number_of_shares == (friendsIDarray.length - 1)) {
+		
 		//Last friend is processed
 		if (successful_shares_count > 0) {
 			$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared with " + successful_shares_count + " friends");
@@ -130,8 +133,7 @@ function shareWithFriends() {
 		$('#share-page').text("Sharing page...")
 		addIDs();
 		var message = getMessage(),
-		url = window.location.href,
-		successful_shares_count = 0;
+		url = window.location.href;
 
 		//Request public permissions
 		FB.login(function(response){
