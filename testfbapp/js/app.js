@@ -122,7 +122,7 @@ function shareWithFriends() {
 					  'post',
 					  {
 					  	campaign: url,
-					  	message: message + " @" + friendsIDarray[i],	  	
+					  	message: message + " @[" + friendsIDarray[i] + "]",	  	
 					  },	
 					  function(response) {
 					    console.log(response);
