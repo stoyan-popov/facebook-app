@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# testappavaaz: http://ogp.me/ns/fb/testappavaaz#">
+ 		<!-- Meta tags -->
+	  <meta property="fb:app_id" content="905147802828926" /> 
+	  <meta property="og:type"   content="testappavaaz:petition" /> 
+	  <meta property="og:url"    content="https://dtoakley.github.io/testfbapp/" /> 
+	  <meta property="og:title"  content="Facebook Tagging Prototype" /> 
+	  <meta property="og:image"  content="https://dtoakley.github.io/testfbapp/img/App.png" /> 
+
+	<meta charset="UTF-8">
+	<title>test fb app</title>
+	<!-- JS -->
+	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/jquery.hideseek.min.js"></script>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	
+</head>
+<body>
+	<script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '905147802828926',
+          xfbml      : true,
+          version    : 'v2.2'
+        });
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+	<div class="container">
+	<h1>Facebook Tagging Prototype</h1>
+		<div id="tagable">
+			<button id="tag-friends" class="btn btn-primary" data-toggle="modal" data-target="#modal">Share this app on Facebook</button>
+		</div>
+		<div class="alert alert-danger animated" role="alert" id="login-alert"><p>Opps! This app needs you to login to Facebook.</p></div>
+		<!--Taggable friends Model-->
+
+		<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		        <h2 class="modal-title">Share this app!</h2>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="intro">
+					<h4>Select up to 10 friends to tag in a post about this app.</h4>
+				</div>
+				<div id="alerts">
+					<div class="alert alert-danger animated" role="alert" id="limit-alert"><p>You can only select 10 friends at once.</p></div>
+					<div class="alert alert-danger animated" role="alert" id="permission-alert"><p>Opps! This app needs your permission to share on Facebook.</p></div>
+				</div>
+				<div class="search">
+					<p><a href="#" id="none">Select none</a></p>
+					<input id="search" name="search" placeholder="Search friends" type="text" data-list=".results" class="form-control">
+				</div>
+				<div class="results">
+					<div id="loading">
+					</div>
+				</div>
+				<div class="row">
+				<div class="col-md-6" id="left-col">
+					<div id="copy">
+						<p id="suggested">Suggested message:</p>
+						<p id="text">Check out this cool Facebook sharing app!</p>
+						<button type="button" class="btn btn-danger" id="copy-text">Copy</button>
+					</div>
+				</div>
+				<div class="col-md-6" id="right-col">
+						<textarea class="form-control" id="message-box" ows="5" placeholder="Use the red button to copy the text, then personalise your message."></textarea>
+				</div>
+				</div>
+		      </div>
+		      <div class="modal-footer">
+		      	<div class="share">
+					<button id="share-page" class="btn btn-primary btn-lg">Share with <span id="friend-cnt"></span> <span id="friends-word">friends</span></button>
+				</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<!--Template for each new friend-->
+		<div class="names hidden">
+					<div class="name col-md-4">
+						<div class="friend">
+							<input type="checkbox" name="friend">
+							<img src="" class="image"/>
+							<label class="checkbox-inline">
+		    				</label>
+		    			</div>
+	    			</div>
+				</div>		
+	</div>
+</body>
+</html>
