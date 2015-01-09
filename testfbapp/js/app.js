@@ -112,7 +112,7 @@ function track_progress(fb_response) {
     	successful_shares_count++;
     } 
 	
-	console.log(total_number_of_shares + " -> " + successful_shares_count);
+	console.log(total_number_of_shares + " -> " + successful_shares_count + " | " + friendsIDarray.length);
 	
 	if (total_number_of_shares == (friendsIDarray.length - 1)) {
 		
