@@ -118,7 +118,7 @@ function shareWithFriends() {
 		      	//Post to Facebook	
 				for (var i = 0; i < friendsIDarray.length; i++) {
 			        FB.api(
-					  'me/testappavaaz:signed',
+					  'me/testappavaaz_:signed',
 					  'post',
 					  {
 					  	petition: url,
