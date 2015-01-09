@@ -108,8 +108,6 @@ function shareWithFriends() {
 		e.stopPropagation();
 		$('#share-page').text("Sharing page...")
 		addIDs();
-		user_friend_list = friendsIDarray.join();
-		var ids = getIDs(friendsIDarray);
 		var message = getMessage();
 		var url = window.location.href;
 
@@ -118,23 +116,25 @@ function shareWithFriends() {
 			console.log(response);
 			if (response.authResponse) {
 		      	//Post to Facebook	
-		        FB.api(
-				  'me/testappavaaz:signed',
-				  'post',
-				  {
-				  	petition: url,
-				  	message: message + " @" + friendsIDarray[i],	  	
-				  },	
-				  function(response) {
-				    console.log(response);
-				    if (response.error) {
-				    	$('#permission-alert').addClass("fadeInDown").show();
-				    	$('#share-page').text('Share with friends')
-				    }
-				    else {
-				    	$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared");
-				    }    
-				});	
+				for (var i = 0; i < friendsIDarray.length; i++) {
+			        FB.api(
+					  'me/testappavaaz:signed',
+					  'post',
+					  {
+					  	petition: url,
+					  	message: message + " @" + friendsIDarray[i],	  	
+					  },	
+					  function(response) {
+					    console.log(response);
+					    if (response.error) {
+					    	$('#permission-alert').addClass("fadeInDown").show();
+					    	$('#share-page').text('Share with friends')
+					    }
+					    else {
+					    	$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared");
+					    }    
+					});	
+				}
 		      } 
 		      else
 		      {
