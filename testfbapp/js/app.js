@@ -102,6 +102,24 @@ function getIDs(data) {
 	return result;
 }
 
+var successful_shares_count = 0;
+
+function track_progress(current_friend_number, fb_response) {
+	if (!fb_response.error) {
+    	successful_shares_count++;
+    } 
+	
+	if (current_friend_number === (friendsIDarray.length - 1)) {
+		//Last friend is processed
+		if (successful_shares_count > 0) {
+			$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared with " + successful_shares_count + " friends");
+		} else {
+			$('#permission-alert').addClass("fadeInDown").show();
+	    	$('#share-page').text('Share with friends')
+		}
+	}
+}
+
 //Generates FB post with tagged friends an message. 
 function shareWithFriends() {
 	$('#share-page').click(function(e) {
@@ -116,6 +134,9 @@ function shareWithFriends() {
 		FB.login(function(response){
 			console.log(response);
 			if (response.authResponse) {
+				
+				$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Sending ...");
+				
 		      	//Post to Facebook	
 				for (var i = 0; i < friendsIDarray.length; i++) {
 			        FB.api(
@@ -126,19 +147,13 @@ function shareWithFriends() {
 					  	message: message + " @[" + friendsIDarray[i] + "]",	  	
 					  },	
 					  function(response) {
+						  track_progress(i, response);
 					    console.log(response);
-					    if (!response.error) {
-					    	successful_shares_count++;
-					    }    
+					       
 					});	
 				}
 				
-				if (successful_shares_count > 0) {
-					$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared with " + successful_shares_count + " friends");
-				} else {
-					$('#permission-alert').addClass("fadeInDown").show();
-			    	$('#share-page').text('Share with friends')
-				}
+				
 		      } else {
 		        console.log(response);
 		      }
