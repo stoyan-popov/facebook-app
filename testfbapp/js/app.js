@@ -111,11 +111,8 @@ function track_progress(fb_response) {
 	if (!fb_response.error) {
     	successful_shares_count++;
     } 
-	
-	console.log(total_number_of_shares + " -> " + successful_shares_count + " | " + friendsIDarray.length);
-	
-	if (total_number_of_shares == friendsIDarray.length) {
-		
+
+	if (total_number_of_shares == friendsIDarray.length) {		
 		//Last friend is processed
 		if (successful_shares_count > 0) {
 			$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared with " + successful_shares_count + " friends");
