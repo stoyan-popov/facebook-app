@@ -109,13 +109,13 @@ function track_progress(current_friend_number, fb_response) {
     	successful_shares_count++;
     } 
 	
-	if (current_friend_number === (friendsIDarray.length - 1)) {
+	if (current_friend_number == (friendsIDarray.length - 1)) {
 		//Last friend is processed
 		if (successful_shares_count > 0) {
 			$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared with " + successful_shares_count + " friends");
 		} else {
 			$('#permission-alert').addClass("fadeInDown").show();
-	    	$('#share-page').text('Share with friends')
+	    	$('#share-page').text('Share with friends').prop('disabled', false);
 		}
 	}
 }
@@ -147,13 +147,10 @@ function shareWithFriends() {
 					  	message: message + " @[" + friendsIDarray[i] + "]",	  	
 					  },	
 					  function(response) {
-						  track_progress(i, response);
-					    console.log(response);
-					       
+						  console.log(response);
+						  track_progress(i, response);    
 					});	
-				}
-				
-				
+				}			
 		      } else {
 		        console.log(response);
 		      }
