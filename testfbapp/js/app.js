@@ -102,14 +102,17 @@ function getIDs(data) {
 	return result;
 }
 
-var successful_shares_count = 0;
+var successful_shares_count = 0,
+	total_number_of_shares = 0;
 
-function track_progress(current_friend_number, fb_response) {
+function track_progress(fb_response) {
+	total_number_of_shares++;
+	
 	if (!fb_response.error) {
     	successful_shares_count++;
     } 
 	
-	if (current_friend_number == (friendsIDarray.length - 1)) {
+	if (total_number_of_shares == (friendsIDarray.length - 1)) {
 		//Last friend is processed
 		if (successful_shares_count > 0) {
 			$('#share-page').prop('disabled', true).removeClass("btn-primary").addClass("btn-default").text("Page shared with " + successful_shares_count + " friends");
@@ -148,7 +151,7 @@ function shareWithFriends() {
 					  },	
 					  function(response) {
 						  console.log(response);
-						  track_progress(i, response);    
+						  track_progress(response);    
 					});	
 				}			
 		      } else {
